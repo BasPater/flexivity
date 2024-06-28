@@ -8,7 +8,7 @@ By collecting data on users' activities and preferences, Flexivity can offer per
 
 ### Contributors:
 - [Bas Peters](https://github.com/BasPater)
-- [Tom de Waardt]()
+- [Tom de Waardt](https://github.com/tomdewaardt)
 - [Jack Stuijt](https://github.com/Coillenz)
 - [Valentijn Nijhuis]()
 - [Robert Visser](https://github.com/LordVis)
