@@ -6,7 +6,7 @@ By collecting data on users' activities and preferences, Flexivity can offer per
 
 ![Summary 2](https://github.com/BasPater/flexivity/assets/144136215/0c9f8713-02e3-49bf-a4da-55527c943b42)
 
-###Contributors:
+### Contributors:
 - [Bas Peters](https://github.com/BasPater)
 - [Tom de Waardt]()
 - [Jack Stuijt](https://github.com/Coillenz)
