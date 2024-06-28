@@ -1,0 +1,741 @@
+@startuml class-diagram
+set namespaceSeparator ::
+
+class "flexivity::app::models::navigation_models::navigation_destination_item.dart::NavigationDestinationItem" {
+  +String route
+}
+
+"flutter::src::material::navigation_bar.dart::NavigationDestination" <|-- "flexivity::app::models::navigation_models::navigation_destination_item.dart::NavigationDestinationItem"
+
+class "flexivity::app::models::ui_state.dart::UIState" {
+  +int index
+  {static} +List<UIState> values
+  {static} +UIState empty
+  {static} +UIState loading
+  {static} +UIState normal
+  {static} +UIState error
+}
+
+"flexivity::app::models::ui_state.dart::UIState" o-- "flexivity::app::models::ui_state.dart::UIState"
+"dart::core::Enum" <|-- "flexivity::app::models::ui_state.dart::UIState"
+
+class "flexivity::app::theme::app_theme.dart::FlexivityAppTheme" {
+  {static} +dynamic buildLightTheme()
+  {static} +dynamic buildDarkTheme()
+}
+
+class "flexivity::app::views::home_view::widgets::activity_list.dart::ActivityList" {
+  +List<Activity> activityRecords
+  +State<StatefulWidget> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "flexivity::app::views::home_view::widgets::activity_list.dart::ActivityList"
+
+class "flexivity::app::views::home_view::widgets::activity_list.dart::_ActivityList" {
+  +Widget build()
+  +Widget createListSpacing()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "flexivity::app::views::home_view::widgets::activity_list.dart::_ActivityList"
+
+class "flexivity::app::views::home_view::widgets::activity_list_item.dart::ActivityListItem" {
+  +Activity activity
+  +Widget build()
+}
+
+"flexivity::app::views::home_view::widgets::activity_list_item.dart::ActivityListItem" o-- "flexivity::data::models::activity.dart::Activity"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "flexivity::app::views::home_view::widgets::activity_list_item.dart::ActivityListItem"
+
+class "flexivity::app::views::home_view::widgets::list_date_divider.dart::ListDateDivider" {
+  +DateTime date
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "flexivity::app::views::home_view::widgets::list_date_divider.dart::ListDateDivider"
+
+class "flexivity::app::views::home_view::widgets::step_goal_gauge::step_goal_gauge.dart::StepGoalGauge" {
+  +Duration duration
+  +int stepGoal
+  +int totalSteps
+  +Curve curve
+  +Size size
+  +State<StatefulWidget> createState()
+}
+
+"flexivity::app::views::home_view::widgets::step_goal_gauge::step_goal_gauge.dart::StepGoalGauge" o-- "flutter::src::animation::curves.dart::Curve"
+"flexivity::app::views::home_view::widgets::step_goal_gauge::step_goal_gauge.dart::StepGoalGauge" o-- "dart::ui::Size"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "flexivity::app::views::home_view::widgets::step_goal_gauge::step_goal_gauge.dart::StepGoalGauge"
+
+class "flexivity::app::views::home_view::widgets::step_goal_gauge::step_goal_gauge.dart::StepGoalGaugeState" {
+  -AnimationController _controller
+  +void initState()
+  +void dispose()
+  +Widget build()
+}
+
+"flexivity::app::views::home_view::widgets::step_goal_gauge::step_goal_gauge.dart::StepGoalGaugeState" o-- "flutter::src::animation::animation_controller.dart::AnimationController"
+"flutter::src::widgets::framework.dart::State" <|-- "flexivity::app::views::home_view::widgets::step_goal_gauge::step_goal_gauge.dart::StepGoalGaugeState"
+"flutter::src::widgets::ticker_provider.dart::SingleTickerProviderStateMixin" <|-- "flexivity::app::views::home_view::widgets::step_goal_gauge::step_goal_gauge.dart::StepGoalGaugeState"
+
+class "flexivity::app::views::home_view::widgets::step_goal_gauge::step_goal_gauge_painter.dart::StepGoalIndicatorPainter" {
+  {static} +double innerIndicatorSeparatorHeight
+  {static} +double defaultStrokeWidth
+  {static} +double defaultFontSize
+  {static} +double padding
+  {static} +double halfCircle
+  {static} +double fullCircle
+  {static} +double bottomOffset
+  {static} +double startAngle
+  {static} +double sweepAngle
+  {static} +double topLeftCircleAngle
+  {static} +double bottomRightCircleAngle
+  {static} +double maxPercentage
+  {static} +Size minSize
+  +ThemeData? theme
+  +int stepGoal
+  +int totalSteps
+  +bool shouldRepaint()
+  +void paint()
+  -void _drawStepsGauge()
+  +void drawInner()
+  +void drawStatus()
+  +void drawStatusText()
+  -Paint _getCompletedPaintStyle()
+  -Paint _getIncompletePaintStyle()
+  -Paint _getElementPaint()
+  -TextStyle _getTitleStyle()
+  -TextStyle _getTextStyle()
+  +void drawCenteredText()
+  -Rect _innerCircleRect()
+  -Point<num> _statusPos()
+  +double halve()
+  -double _degreesToRadians()
+  -double _degreesForPercentage()
+  -Point<num> _getPositionInCircle()
+  -Point<num> _getCenter()
+}
+
+"flexivity::app::views::home_view::widgets::step_goal_gauge::step_goal_gauge_painter.dart::StepGoalIndicatorPainter" o-- "dart::ui::Size"
+"flexivity::app::views::home_view::widgets::step_goal_gauge::step_goal_gauge_painter.dart::StepGoalIndicatorPainter" o-- "flutter::src::material::theme_data.dart::ThemeData"
+"flutter::src::rendering::custom_paint.dart::CustomPainter" <|-- "flexivity::app::views::home_view::widgets::step_goal_gauge::step_goal_gauge_painter.dart::StepGoalIndicatorPainter"
+
+class "flexivity::app::widgets::full_width_button.dart::FullWidthButton" {
+  +String label
+  +void Function() onPressed
+  +ButtonStyle? style
+  +bool isLoading
+  +State<FullWidthButton> createState()
+}
+
+"flexivity::app::widgets::full_width_button.dart::FullWidthButton" o-- "null::void Function()"
+"flexivity::app::widgets::full_width_button.dart::FullWidthButton" o-- "flutter::src::material::button_style.dart::ButtonStyle"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "flexivity::app::widgets::full_width_button.dart::FullWidthButton"
+
+class "flexivity::app::widgets::full_width_button.dart::_FullWidthButtonState" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "flexivity::app::widgets::full_width_button.dart::_FullWidthButtonState"
+
+class "flexivity::app::widgets::navbar_widget.dart::NavbarWidget" {
+  +int index
+  +State<NavbarWidget> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "flexivity::app::widgets::navbar_widget.dart::NavbarWidget"
+
+class "flexivity::app::widgets::navbar_widget.dart::_NavbarWidgetState" {
+  {static} +List<NavigationDestinationItem> destinations
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "flexivity::app::widgets::navbar_widget.dart::_NavbarWidgetState"
+
+class "flexivity::app::widgets::outlined_text_field.dart::OutlinedTextField" {
+  +TextEditingController controller
+  +String? hint
+  +Widget build()
+}
+
+"flexivity::app::widgets::outlined_text_field.dart::OutlinedTextField" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "flexivity::app::widgets::outlined_text_field.dart::OutlinedTextField"
+
+class "flexivity::app::widgets::ui_state_switcher::ui_state_switcher.dart::UIStateSwitcher" {
+  +UIState uiState
+  +Widget normalState
+  +Widget loadingState
+  +Widget? errorState
+  +Widget? emptySate
+  +State<UIStateSwitcher> createState()
+}
+
+"flexivity::app::widgets::ui_state_switcher::ui_state_switcher.dart::UIStateSwitcher" o-- "flexivity::app::models::ui_state.dart::UIState"
+"flexivity::app::widgets::ui_state_switcher::ui_state_switcher.dart::UIStateSwitcher" o-- "flutter::src::widgets::framework.dart::Widget"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "flexivity::app::widgets::ui_state_switcher::ui_state_switcher.dart::UIStateSwitcher"
+
+class "flexivity::app::widgets::ui_state_switcher::ui_state_switcher.dart::_UIStateSwitcherState" {
+  -Widget _buildBody()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "flexivity::app::widgets::ui_state_switcher::ui_state_switcher.dart::_UIStateSwitcherState"
+
+class "flexivity::data::globals.dart::Globals" {
+  {static} +Credentials? credentials
+}
+
+"flexivity::data::globals.dart::Globals" o-- "flexivity::data::models::credentials.dart::Credentials"
+
+class "flexivity::data::models::activity.dart::Activity" {
+  +int activityId
+  +DateTime activityAt
+  +int steps
+  +double calories
+  +Map<String, dynamic> toJson()
+}
+
+class "flexivity::data::models::credentials.dart::Credentials" {
+  +int userId
+  +String accessToken
+  +String refreshToken
+}
+
+class "flexivity::data::models::day_activity.dart::DayActivity" {
+  +int steps
+  +int calories
+  +Map<String, dynamic> toJson()
+}
+
+class "flexivity::data::models::errors::api_authentication_exception.dart::ApiAuthenticationException" {
+  +String message
+}
+
+"dart::core::Exception" <|-- "flexivity::data::models::errors::api_authentication_exception.dart::ApiAuthenticationException"
+
+class "flexivity::data::models::errors::api_exception.dart::ApiException" {
+  +String message
+}
+
+"dart::core::Exception" <|-- "flexivity::data::models::errors::api_exception.dart::ApiException"
+
+class "flexivity::data::models::errors::api_permission_exception.dart::ApiPermissionException" {
+}
+
+"flexivity::data::models::errors::api_exception.dart::ApiException" <|-- "flexivity::data::models::errors::api_permission_exception.dart::ApiPermissionException"
+
+class "flexivity::data::models::errors::http_api_exception.dart::HttpApiException" {
+  +int statusCode
+}
+
+"flexivity::data::models::errors::api_exception.dart::ApiException" <|-- "flexivity::data::models::errors::http_api_exception.dart::HttpApiException"
+
+class "flexivity::data::models::friend.dart::Friend" {
+  +DayActivity? activity
+  +Map<String, dynamic> toJson()
+}
+
+"flexivity::data::models::friend.dart::Friend" o-- "flexivity::data::models::day_activity.dart::DayActivity"
+"flexivity::data::models::user.dart::User" <|-- "flexivity::data::models::friend.dart::Friend"
+
+class "flexivity::data::models::friendship.dart::Friendship" {
+  +int friendshipId
+  +Friend friend
+  +FriendshipStatus status
+  +int actionUserId
+  +DateTime createdAt
+  +DateTime updatedAt
+  +Map<String, dynamic> toJson()
+}
+
+"flexivity::data::models::friendship.dart::Friendship" o-- "flexivity::data::models::friend.dart::Friend"
+"flexivity::data::models::friendship.dart::Friendship" o-- "flexivity::data::models::friendship_status.dart::FriendshipStatus"
+
+class "flexivity::data::models::friendship_status.dart::FriendshipStatus" {
+  +int index
+  {static} +List<FriendshipStatus> values
+  {static} +FriendshipStatus pending
+  {static} +FriendshipStatus accepted
+  {static} +FriendshipStatus rejected
+  {static} +FriendshipStatus blocked
+}
+
+"flexivity::data::models::friendship_status.dart::FriendshipStatus" o-- "flexivity::data::models::friendship_status.dart::FriendshipStatus"
+"dart::core::Enum" <|-- "flexivity::data::models::friendship_status.dart::FriendshipStatus"
+
+class "flexivity::data::models::friend_request.dart::FriendRequest" {
+  +int friendshipId
+  +User friend
+  +FriendshipStatus status
+  +int actionUserId
+  +DateTime createdAt
+  +DateTime updatedAt
+  +Map<String, dynamic> toJson()
+}
+
+"flexivity::data::models::friend_request.dart::FriendRequest" o-- "flexivity::data::models::user.dart::User"
+"flexivity::data::models::friend_request.dart::FriendRequest" o-- "flexivity::data::models::friendship_status.dart::FriendshipStatus"
+
+class "flexivity::data::models::new_user.dart::NewUser" {
+  +String password
+  +Map<String, dynamic> toJson()
+}
+
+"flexivity::data::models::user.dart::User" <|-- "flexivity::data::models::new_user.dart::NewUser"
+
+class "flexivity::data::models::requests::delete_friend_request.dart::DeleteFriendRequest" {
+  +int userId
+  +int friendId
+  +Map<String, dynamic> toJson()
+}
+
+class "flexivity::data::models::requests::login_request.dart::LoginRequest" {
+  +String email
+  +String password
+  +Map<String, dynamic> toJson()
+}
+
+class "flexivity::data::models::requests::response_friendship_request.dart::ResponseFriendshipRequest" {
+  +int userId
+  +int friendId
+  +FriendshipStatus status
+  +Map<String, dynamic> toJson()
+}
+
+"flexivity::data::models::requests::response_friendship_request.dart::ResponseFriendshipRequest" o-- "flexivity::data::models::friendship_status.dart::FriendshipStatus"
+
+class "flexivity::data::models::requests::send_friend_request.dart::SendFriendRequest" {
+  +int userId
+  +String friendUserName
+  +FriendshipStatus status
+  +Map<String, dynamic> toJson()
+}
+
+"flexivity::data::models::requests::send_friend_request.dart::SendFriendRequest" o-- "flexivity::data::models::friendship_status.dart::FriendshipStatus"
+
+class "flexivity::data::models::responses::error_response.dart::ErrorResponse" {
+  +String message
+  +String status
+  +DateTime timestamp
+  +Map<String, dynamic> toJson()
+}
+
+class "flexivity::data::models::responses::get_friendships_response.dart::GetFriendshipResponse" {
+  +List<Friendship> list
+  +List<dynamic> toJson()
+}
+
+class "flexivity::data::models::responses::get_friend_request_response.dart::GetFriendRequestResponse" {
+  +List<FriendRequest> list
+  +List<dynamic> toJson()
+}
+
+class "flexivity::data::models::responses::get_user_response.dart::GetUserResponse" {
+  +User user
+}
+
+"flexivity::data::models::responses::get_user_response.dart::GetUserResponse" o-- "flexivity::data::models::user.dart::User"
+
+class "flexivity::data::models::responses::login_response.dart::LoginResponse" {
+  +User user
+  +String accessToken
+  +String refreshToken
+  +Map<String, dynamic> toJson()
+}
+
+"flexivity::data::models::responses::login_response.dart::LoginResponse" o-- "flexivity::data::models::user.dart::User"
+
+class "flexivity::data::models::user.dart::User" {
+  +int userId
+  +String email
+  +String userName
+  +String firstName
+  +String lastName
+  +String role
+  +Map<String, dynamic> toJson()
+}
+
+abstract class "flexivity::data::remote::activity::abstract_activity_api.dart::IActivityApi" {
+  +dynamic getActivity()
+  +dynamic getActivities()
+  +dynamic saveActivity()
+}
+
+class "flexivity::data::remote::activity::web_activity_api.dart::WebActivityApi" {
+  +dynamic getActivity()
+  +dynamic getActivities()
+  +dynamic saveActivity()
+}
+
+"flexivity::data::remote::base::http_api.dart::HttpApi" <|-- "flexivity::data::remote::activity::web_activity_api.dart::WebActivityApi"
+"flexivity::data::remote::activity::abstract_activity_api.dart::IActivityApi" <|-- "flexivity::data::remote::activity::web_activity_api.dart::WebActivityApi"
+
+class "flexivity::data::remote::authentication::abstract_authentication_api.dart::IAuthenticationApi" {
+  +dynamic register()
+  +dynamic login()
+}
+
+class "flexivity::data::remote::authentication::web_authentication_api.dart::WebAuthenticationApi" {
+  +dynamic register()
+  +dynamic login()
+}
+
+"flexivity::data::remote::base::http_api.dart::HttpApi" <|-- "flexivity::data::remote::authentication::web_authentication_api.dart::WebAuthenticationApi"
+"flexivity::data::remote::authentication::abstract_authentication_api.dart::IAuthenticationApi" <|-- "flexivity::data::remote::authentication::web_authentication_api.dart::WebAuthenticationApi"
+
+class "flexivity::data::remote::base::http_api.dart::HttpApi" {
+  -Client _client
+  +Credentials? credentials
+  +dynamic get()
+  +dynamic post()
+  +dynamic put()
+  +dynamic delete()
+  +dynamic sendRequest()
+  +dynamic refreshToken()
+  -void _addCredentialsIfPresent()
+  -void _addContentTypeJsonIfAbsent()
+  -void _addDefaultHeaders()
+  -Request _copyRequest()
+  -dynamic _handleResponse()
+  +HttpApiException createHttpException()
+  +Uri getUri()
+}
+
+"flexivity::data::remote::base::http_api.dart::HttpApi" o-- "http::src::client.dart::Client"
+"flexivity::data::remote::base::http_api.dart::HttpApi" o-- "flexivity::data::models::credentials.dart::Credentials"
+"flexivity::data::remote::base::web_api.dart::WebApi" <|-- "flexivity::data::remote::base::http_api.dart::HttpApi"
+
+class "flexivity::data::remote::base::web_api.dart::WebApi" {
+  +String host
+  +int port
+  +String getUrl()
+}
+
+class "flexivity::data::remote::credentials::abstract_credentials_api.dart::ICredentialsApi" {
+  +dynamic setCredentials()
+  +dynamic getCredentials()
+  +dynamic deleteCredentials()
+  +dynamic hasCredentials()
+}
+
+class "flexivity::data::remote::credentials::local_credentials_api.dart::LocalCredentialsApi" {
+  {static} +String accessTokenKey
+  {static} +String refreshTokenKey
+  {static} +String userIdKey
+  +FlutterSecureStorage storage
+  +dynamic setCredentials()
+  +dynamic getCredentials()
+  +dynamic deleteCredentials()
+  +dynamic hasCredentials()
+}
+
+"flexivity::data::remote::credentials::local_credentials_api.dart::LocalCredentialsApi" o-- "flutter_secure_storage::flutter_secure_storage.dart::FlutterSecureStorage"
+"flexivity::data::remote::credentials::abstract_credentials_api.dart::ICredentialsApi" <|-- "flexivity::data::remote::credentials::local_credentials_api.dart::LocalCredentialsApi"
+
+class "flexivity::data::remote::friend::abstract_friend_api.dart::IFriendApi" {
+  +dynamic deleteFriend()
+  +dynamic getFriends()
+  +dynamic addFriend()
+  +dynamic getFriendRequests()
+  +dynamic respondFriendRequest()
+}
+
+class "flexivity::data::remote::friend::friend_api.dart::FriendApi" {
+  +dynamic addFriend()
+  +dynamic deleteFriend()
+  +dynamic getFriends()
+  +dynamic getFriendRequests()
+  +dynamic respondFriendRequest()
+}
+
+"flexivity::data::remote::base::http_api.dart::HttpApi" <|-- "flexivity::data::remote::friend::friend_api.dart::FriendApi"
+"flexivity::data::remote::friend::abstract_friend_api.dart::IFriendApi" <|-- "flexivity::data::remote::friend::friend_api.dart::FriendApi"
+
+class "flexivity::data::remote::health::abstract_health_api.dart::IHealthApi" {
+  +dynamic getTodaysHealthData()
+}
+
+class "flexivity::data::remote::health::local_health_api.dart::LocalHealthApi" {
+  +Health healthApi
+  +dynamic getTodaysHealthData()
+  -Activity? _parseHealthData()
+}
+
+"flexivity::data::remote::health::local_health_api.dart::LocalHealthApi" o-- "health::health.dart::Health"
+"flexivity::data::remote::health::abstract_health_api.dart::IHealthApi" <|-- "flexivity::data::remote::health::local_health_api.dart::LocalHealthApi"
+
+class "flexivity::data::remote::preferences::abstract_preferences_api.dart::IPreferencesApi" {
+  +void setStepGoal()
+  +dynamic getStepGoal()
+}
+
+class "flexivity::data::remote::preferences::preferences_api.dart::PreferencesApi" {
+  {static} +String stepGoalKey
+  +FlutterSecureStorage prefs
+  +dynamic getStepGoal()
+  +void setStepGoal()
+}
+
+"flexivity::data::remote::preferences::preferences_api.dart::PreferencesApi" o-- "flutter_secure_storage::flutter_secure_storage.dart::FlutterSecureStorage"
+"flexivity::data::remote::preferences::abstract_preferences_api.dart::IPreferencesApi" <|-- "flexivity::data::remote::preferences::preferences_api.dart::PreferencesApi"
+
+class "flexivity::data::remote::user::abstract_user_api.dart::IUserApi" {
+  +dynamic updateUser()
+  +dynamic getUser()
+  +dynamic deleteUser()
+}
+
+class "flexivity::data::remote::user::user_api.dart::UserApi" {
+  +dynamic getUser()
+  +dynamic updateUser()
+  +dynamic deleteUser()
+}
+
+"flexivity::data::remote::base::http_api.dart::HttpApi" <|-- "flexivity::data::remote::user::user_api.dart::UserApi"
+"flexivity::data::remote::user::abstract_user_api.dart::IUserApi" <|-- "flexivity::data::remote::user::user_api.dart::UserApi"
+
+class "flexivity::data::repositories::activity::activity_repository.dart::ActivityRepository" {
+  +IActivityApi activityApi
+  +dynamic getActivity()
+  +dynamic getActivities()
+  +dynamic saveActivity()
+}
+
+"flexivity::data::repositories::activity::activity_repository.dart::ActivityRepository" o-- "flexivity::data::remote::activity::abstract_activity_api.dart::IActivityApi"
+"flexivity::domain::repositories::activity::abstract_activity_repository.dart::IActivityRepository" <|-- "flexivity::data::repositories::activity::activity_repository.dart::ActivityRepository"
+
+class "flexivity::data::repositories::authentication::web_authentication_repository.dart::WebAuthenticationRepository" {
+  +WebAuthenticationApi api
+  +dynamic register()
+  +dynamic login()
+}
+
+"flexivity::data::repositories::authentication::web_authentication_repository.dart::WebAuthenticationRepository" o-- "flexivity::data::remote::authentication::web_authentication_api.dart::WebAuthenticationApi"
+"flexivity::domain::repositories::authentication::abstract_authentication_repository.dart::IAuthenticationRepository" <|-- "flexivity::data::repositories::authentication::web_authentication_repository.dart::WebAuthenticationRepository"
+
+class "flexivity::data::repositories::credentials::credentials_repository.dart::CredentialsRepository" {
+  +ICredentialsApi api
+  +dynamic setCredentials()
+  +dynamic getCredentials()
+  +dynamic deleteCredentials()
+  +dynamic hasCredentials()
+}
+
+"flexivity::data::repositories::credentials::credentials_repository.dart::CredentialsRepository" o-- "flexivity::data::remote::credentials::abstract_credentials_api.dart::ICredentialsApi"
+"flexivity::domain::repositories::credentials::abstract_credentials_repository.dart::ICredentialsRepository" <|-- "flexivity::data::repositories::credentials::credentials_repository.dart::CredentialsRepository"
+
+class "flexivity::data::repositories::friend::friend_repository.dart::FriendRepository" {
+  +FriendApi api
+  +dynamic addFriend()
+  +dynamic deleteFriend()
+  +dynamic getFriends()
+  +dynamic getFriendRequests()
+  +dynamic respondFriendRequest()
+}
+
+"flexivity::data::repositories::friend::friend_repository.dart::FriendRepository" o-- "flexivity::data::remote::friend::friend_api.dart::FriendApi"
+"flexivity::domain::repositories::friend::abstract_friend_repository.dart::IFriendRepository" <|-- "flexivity::data::repositories::friend::friend_repository.dart::FriendRepository"
+
+class "flexivity::data::repositories::health::health_repository.dart::HealthRepository" {
+  +IHealthApi api
+  +dynamic getTodaysActivity()
+}
+
+"flexivity::data::repositories::health::health_repository.dart::HealthRepository" o-- "flexivity::data::remote::health::abstract_health_api.dart::IHealthApi"
+"flexivity::domain::repositories::health::abstract_health_repository.dart::IHealthRepository" <|-- "flexivity::data::repositories::health::health_repository.dart::HealthRepository"
+
+class "flexivity::data::repositories::preferences::preferences_repository.dart::PreferencesRepository" {
+  +IPreferencesApi api
+  +dynamic getStepGoal()
+  +void setStepGoal()
+}
+
+"flexivity::data::repositories::preferences::preferences_repository.dart::PreferencesRepository" o-- "flexivity::data::remote::preferences::abstract_preferences_api.dart::IPreferencesApi"
+"flexivity::domain::repositories::preferences::abstract_preferences_repository.dart::IPreferencesRepository" <|-- "flexivity::data::repositories::preferences::preferences_repository.dart::PreferencesRepository"
+
+class "flexivity::data::repositories::user::user_repository.dart::UserRepository" {
+  +UserApi api
+  +dynamic getUser()
+  +dynamic updateUser()
+  +dynamic deleteUser()
+}
+
+"flexivity::data::repositories::user::user_repository.dart::UserRepository" o-- "flexivity::data::remote::user::user_api.dart::UserApi"
+"flexivity::domain::repositories::user::abstract_user_repository.dart::IUserRepository" <|-- "flexivity::data::repositories::user::user_repository.dart::UserRepository"
+
+abstract class "flexivity::domain::repositories::activity::abstract_activity_repository.dart::IActivityRepository" {
+  +dynamic getActivity()
+  +dynamic getActivities()
+  +dynamic saveActivity()
+}
+
+class "flexivity::domain::repositories::authentication::abstract_authentication_repository.dart::IAuthenticationRepository" {
+  +dynamic register()
+  +dynamic login()
+}
+
+class "flexivity::domain::repositories::credentials::abstract_credentials_repository.dart::ICredentialsRepository" {
+  +dynamic setCredentials()
+  +dynamic getCredentials()
+  +dynamic deleteCredentials()
+  +dynamic hasCredentials()
+}
+
+class "flexivity::domain::repositories::friend::abstract_friend_repository.dart::IFriendRepository" {
+  +dynamic deleteFriend()
+  +dynamic getFriends()
+  +dynamic addFriend()
+  +dynamic getFriendRequests()
+  +dynamic respondFriendRequest()
+}
+
+class "flexivity::domain::repositories::health::abstract_health_repository.dart::IHealthRepository" {
+  +dynamic getTodaysActivity()
+}
+
+class "flexivity::domain::repositories::preferences::abstract_preferences_repository.dart::IPreferencesRepository" {
+  +void setStepGoal()
+  +dynamic getStepGoal()
+}
+
+class "flexivity::domain::repositories::user::abstract_user_repository.dart::IUserRepository" {
+  +dynamic updateUser()
+  +dynamic getUser()
+  +dynamic deleteUser()
+}
+
+class "flexivity::main.dart::MyApp" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "flexivity::main.dart::MyApp"
+
+class "flexivity::presentation::friends_view_model::add_friend::add_friend_view_model.dart::AddFriendViewModel" {
+  +IFriendRepository friendRepo
+  +TextEditingController addFriendController
+  +UIState uiState
+  +dynamic addFriend()
+  +State<AddFriendViewModel> createState()
+}
+
+"flexivity::presentation::friends_view_model::add_friend::add_friend_view_model.dart::AddFriendViewModel" o-- "flexivity::domain::repositories::friend::abstract_friend_repository.dart::IFriendRepository"
+"flexivity::presentation::friends_view_model::add_friend::add_friend_view_model.dart::AddFriendViewModel" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flexivity::presentation::friends_view_model::add_friend::add_friend_view_model.dart::AddFriendViewModel" o-- "flexivity::app::models::ui_state.dart::UIState"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "flexivity::presentation::friends_view_model::add_friend::add_friend_view_model.dart::AddFriendViewModel"
+
+class "flexivity::presentation::friends_view_model::friends_view_model.dart::FriendsViewModel" {
+  +IFriendRepository friendRepo
+  +UIState uiState
+  +List<Friend> friendsList
+  +int index
+  +dynamic getFriendsById()
+  +dynamic removeFriend()
+  +State<FriendsViewModel> createState()
+}
+
+"flexivity::presentation::friends_view_model::friends_view_model.dart::FriendsViewModel" o-- "flexivity::domain::repositories::friend::abstract_friend_repository.dart::IFriendRepository"
+"flexivity::presentation::friends_view_model::friends_view_model.dart::FriendsViewModel" o-- "flexivity::app::models::ui_state.dart::UIState"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "flexivity::presentation::friends_view_model::friends_view_model.dart::FriendsViewModel"
+
+class "flexivity::presentation::friends_view_model::request_view_model::request_view_model.dart::RequestViewModel" {
+  +IFriendRepository friendRepo
+  +UIState uiState
+  +List<FriendRequest> requests
+  +dynamic getFriendRequests()
+  +dynamic respondFriendRequest()
+  +State<RequestViewModel> createState()
+}
+
+"flexivity::presentation::friends_view_model::request_view_model::request_view_model.dart::RequestViewModel" o-- "flexivity::domain::repositories::friend::abstract_friend_repository.dart::IFriendRepository"
+"flexivity::presentation::friends_view_model::request_view_model::request_view_model.dart::RequestViewModel" o-- "flexivity::app::models::ui_state.dart::UIState"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "flexivity::presentation::friends_view_model::request_view_model::request_view_model.dart::RequestViewModel"
+
+class "flexivity::presentation::home_view_model::home_view_model.dart::HomeViewModel" {
+  {static} +int cacheUpdateAmount
+  +List<Activity> activities
+  +UIState uiState
+  +int stepGoal
+  +int steps
+  +ICredentialsRepository? credRepo
+  +IHealthRepository healthRepo
+  +IActivityRepository activityRepo
+  +IPreferencesRepository prefRepo
+  +State<HomeViewModel> createState()
+  +dynamic loadData()
+  +dynamic loadTodaysActivity()
+  +dynamic loadNextActivities()
+  +void logOut()
+}
+
+"flexivity::presentation::home_view_model::home_view_model.dart::HomeViewModel" o-- "flexivity::app::models::ui_state.dart::UIState"
+"flexivity::presentation::home_view_model::home_view_model.dart::HomeViewModel" o-- "flexivity::domain::repositories::credentials::abstract_credentials_repository.dart::ICredentialsRepository"
+"flexivity::presentation::home_view_model::home_view_model.dart::HomeViewModel" o-- "flexivity::domain::repositories::health::abstract_health_repository.dart::IHealthRepository"
+"flexivity::presentation::home_view_model::home_view_model.dart::HomeViewModel" o-- "flexivity::domain::repositories::activity::abstract_activity_repository.dart::IActivityRepository"
+"flexivity::presentation::home_view_model::home_view_model.dart::HomeViewModel" o-- "flexivity::domain::repositories::preferences::abstract_preferences_repository.dart::IPreferencesRepository"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "flexivity::presentation::home_view_model::home_view_model.dart::HomeViewModel"
+
+class "flexivity::presentation::login_view_model::login_view_model.dart::LoginViewModel" {
+  +IAuthenticationRepository authRepo
+  +ICredentialsRepository credentialsRepo
+  +TextEditingController emailInputController
+  +TextEditingController passwordInputController
+  +bool isPasswordVisible
+  +State<LoginViewModel> createState()
+  +void changePasswordVisibility()
+  +dynamic login()
+}
+
+"flexivity::presentation::login_view_model::login_view_model.dart::LoginViewModel" o-- "flexivity::domain::repositories::authentication::abstract_authentication_repository.dart::IAuthenticationRepository"
+"flexivity::presentation::login_view_model::login_view_model.dart::LoginViewModel" o-- "flexivity::domain::repositories::credentials::abstract_credentials_repository.dart::ICredentialsRepository"
+"flexivity::presentation::login_view_model::login_view_model.dart::LoginViewModel" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "flexivity::presentation::login_view_model::login_view_model.dart::LoginViewModel"
+
+class "flexivity::presentation::profile_view_model::profile_view_model.dart::ProfileScreenViewModel" {
+  +ICredentialsRepository credentialsRepo
+  +IPreferencesRepository prefRepo
+  +IUserRepository userRepo
+  +TextEditingController stepGoalController
+  +TextEditingController deleteAccountController
+  +TextEditingController firstNameController
+  +TextEditingController lastNameController
+  +UIState uiState
+  +User? user
+  +dynamic getStepGoal()
+  +dynamic setStepGoal()
+  +dynamic getUser()
+  +dynamic deleteUser()
+  +dynamic logout()
+  +dynamic updateUser()
+  +State<ProfileScreenViewModel> createState()
+}
+
+"flexivity::presentation::profile_view_model::profile_view_model.dart::ProfileScreenViewModel" o-- "flexivity::domain::repositories::credentials::abstract_credentials_repository.dart::ICredentialsRepository"
+"flexivity::presentation::profile_view_model::profile_view_model.dart::ProfileScreenViewModel" o-- "flexivity::domain::repositories::preferences::abstract_preferences_repository.dart::IPreferencesRepository"
+"flexivity::presentation::profile_view_model::profile_view_model.dart::ProfileScreenViewModel" o-- "flexivity::domain::repositories::user::abstract_user_repository.dart::IUserRepository"
+"flexivity::presentation::profile_view_model::profile_view_model.dart::ProfileScreenViewModel" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flexivity::presentation::profile_view_model::profile_view_model.dart::ProfileScreenViewModel" o-- "flexivity::app::models::ui_state.dart::UIState"
+"flexivity::presentation::profile_view_model::profile_view_model.dart::ProfileScreenViewModel" o-- "flexivity::data::models::user.dart::User"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "flexivity::presentation::profile_view_model::profile_view_model.dart::ProfileScreenViewModel"
+
+class "flexivity::presentation::sign_up_view_model::sign_up_view_model.dart::SignUpViewModel" {
+  +IAuthenticationRepository authRepo
+  +ICredentialsRepository credentialsRepo
+  +TextEditingController emailInputController
+  +TextEditingController usernameInputController
+  +TextEditingController firstNameInputController
+  +TextEditingController lastNameInputController
+  +TextEditingController passwordInputController
+  +bool isPasswordVisible
+  +void changePasswordVisibility()
+  +dynamic register()
+  +State<SignUpViewModel> createState()
+  +bool isValidEmail()
+  +String? isValidPassword()
+}
+
+"flexivity::presentation::sign_up_view_model::sign_up_view_model.dart::SignUpViewModel" o-- "flexivity::domain::repositories::authentication::abstract_authentication_repository.dart::IAuthenticationRepository"
+"flexivity::presentation::sign_up_view_model::sign_up_view_model.dart::SignUpViewModel" o-- "flexivity::domain::repositories::credentials::abstract_credentials_repository.dart::ICredentialsRepository"
+"flexivity::presentation::sign_up_view_model::sign_up_view_model.dart::SignUpViewModel" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "flexivity::presentation::sign_up_view_model::sign_up_view_model.dart::SignUpViewModel"
+
+
+@enduml

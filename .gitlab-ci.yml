@@ -1,0 +1,76 @@
+stages:
+  - code_quality
+  - test
+  - deploy
+
+code_quality:
+  stage: code_quality
+  tags:
+    - hva
+  image: "ghcr.io/cirruslabs/flutter:3.22.0"
+  before_script:
+    - export PATH="$PATH:$HOME/.pub-cache/bin"
+    - dart run build_runner build --delete-conflicting-outputs
+  script:
+    - dart pub global activate flutter_analyze_reporter
+    - flutter_analyze_reporter --output=report.json --reporter=gitlab
+  allow_failure: true
+  rules:
+    - if: $CI_COMMIT_REF_NAME == 'main' || $CI_PIPELINE_SOURCE == 'merge_request_event'
+  artifacts:
+    reports:
+      codequality: report.json
+
+test:
+  stage: test
+  tags:
+    - hva
+  image: "ghcr.io/cirruslabs/flutter:3.22.0"
+  before_script:
+    - flutter pub global activate junitreport
+    - export PATH="$PATH:$HOME/.pub-cache/bin"
+    - dart run build_runner build --delete-conflicting-outputs
+  script:
+    - flutter test --machine --coverage | tojunit -o report.xml
+    - lcov --summary coverage/lcov.info
+    - genhtml coverage/lcov.info --output=coverage
+  coverage: '/lines\.*: \d+\.\d+\%/'
+  rules:
+    - if: $CI_COMMIT_REF_NAME == 'main' || $CI_PIPELINE_SOURCE == 'merge_request_event'
+  artifacts:
+    name: coverage
+    paths:
+      - $CI_PROJECT_DIR/coverage
+    reports:
+      junit: report.xml
+
+release:
+  stage: deploy
+  tags:
+    - hva
+  image: "ghcr.io/cirruslabs/flutter:3.22.0"
+  before_script:
+    # Remove tags not on the remote
+    - git fetch --prune origin "+refs/tags/*:refs/tags/*"
+    # Make pipeline fail on bash script failure
+    - set -eo pipefail
+    - export RELEASE_VERSION=$(./latest_version.sh)
+    - curl --location --output /usr/local/bin/release-cli "https://gitlab.com/api/v4/projects/gitlab-org%2Frelease-cli/packages/generic/release-cli/latest/release-cli-linux-amd64"
+    - sudo chmod +x /usr/local/bin/release-cli
+    - flutter pub get
+  script:
+    - echo "Deploying version ${RELEASE_VERSION}"
+    - |
+      if [[ $RELEASE_VERSION =~ ([0-9]+\.[0-9]+\.[0-9]+)\+?([0-9]+)? ]]; then
+        export BUILD_NAME=${BASH_REMATCH[1]}
+        export BUILD_NUMBER=${BASH_REMATCH[2]}
+      else
+        echo "Build version not formatted correctly"
+        exit 1
+      fi
+    - flutter build apk --release --build-name=$BUILD_NAME --build-number=$BUILD_NUMBER
+    - mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/flexivity.apk
+    - curl -X PUT --header "JOB-TOKEN:${CI_JOB_TOKEN}" --upload-file build/app/outputs/flutter-apk/flexivity.apk "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/flexivity/${RELEASE_VERSION}/flexivity-${RELEASE_VERSION}.apk"
+    - release-cli create --description "Android release v${RELEASE_VERSION}" --tag-name "v${RELEASE_VERSION}" --assets-link='{"name":"'flexivity-${RELEASE_VERSION}.apk'", "url":"'${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/flexivity/${RELEASE_VERSION}/flexivity-${RELEASE_VERSION}.apk'", "link_type":"other"}'
+  rules:
+    - if: $CI_COMMIT_REF_NAME == 'main'

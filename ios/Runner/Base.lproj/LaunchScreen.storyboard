@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina6_12" orientation="portrait" appearance="dark"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="EHf-IW-A2E">
+            <objects>
+                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Ydg-fD-yQy"/>
+                        <viewControllerLayoutGuide type="bottom" id="xbc-2k-c8Z"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchImage" translatesAutoresizingMaskIntoConstraints="NO" id="cbU-wD-58B">
+                                <rect key="frame" x="96" y="326" width="200" height="200"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="cbU-wD-58B" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="4Wa-8c-6os"/>
+                            <constraint firstItem="cbU-wD-58B" firstAttribute="top" secondItem="Ydg-fD-yQy" secondAttribute="bottom" constant="260" id="8PX-2p-WS6"/>
+                            <constraint firstItem="xbc-2k-c8Z" firstAttribute="top" secondItem="cbU-wD-58B" secondAttribute="bottom" constant="260" id="Fw7-hd-m0a"/>
+                            <constraint firstItem="cbU-wD-58B" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="300" id="Oez-lx-VjP"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="cbU-wD-58B" secondAttribute="trailing" constant="80" id="POD-sd-8la"/>
+                            <constraint firstItem="cbU-wD-58B" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="gyM-d3-6Wc"/>
+                            <constraint firstAttribute="trailing" secondItem="cbU-wD-58B" secondAttribute="trailing" constant="80" id="maA-1c-FOk"/>
+                            <constraint firstItem="cbU-wD-58B" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" constant="300" id="xAf-tL-WKs"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="80.152671755725194" y="264.08450704225356"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="LaunchImage" width="341.33334350585938" height="341.33334350585938"/>
+    </resources>
+</document>
