@@ -1,7 +1,10 @@
-# flexivity-frontend
+# Flexivity
 
-[![coverage report](https://gitlab.fdmci.hva.nl/se-specialization-2023-2/projects-tse2/404_namenotfound/step-counter-frontend/badges/main/coverage.svg)](https://gitlab.fdmci.hva.nl/se-specialization-2023-2/projects-tse2/404_namenotfound/step-counter-frontend/-/commits/main)
-[![Latest Release](https://gitlab.fdmci.hva.nl/se-specialization-2023-2/projects-tse2/404_namenotfound/step-counter-frontend/-/badges/release.svg)](https://gitlab.fdmci.hva.nl/se-specialization-2023-2/projects-tse2/404_namenotfound/step-counter-frontend/-/releases)
+Flexivity transforms everyday fitness into a thrilling, shared journey of achievement and fun. By leveraging the power of gamification and social connectivity, Flexivity aims to inspire individuals and groups to elevate their physical activity, fostering healthier lifestyles through friendly competition and communal support.
+Through customized step goals, Flexivity ensures that physical activity becomes a part of the user’s daily routine. The app’s engaging interface and reward system encourage consistent participation, which is key to developing long-lasting healthy habits.
+By collecting data on users' activities and preferences, Flexivity can offer personalized insights and suggestions, improving the effectiveness of workout routines and enhancing user satisfaction. This tailored approach ensures that each user’s fitness journey is optimized to their specific needs and progress pace.
+
+![Summary 2](https://github.com/BasPater/flexivity/assets/144136215/0c9f8713-02e3-49bf-a4da-55527c943b42)
 
 ## Installation instructions
 On gitlab go to Deploy>Releases and select the most recent release. Once there, download the file ending in .apk. You can then navigate to this file on your Android device in your file manager of choice. Tap on the file and you will be given a prompt. Follow the instructions in the prompt and the App will be installed on your device.
