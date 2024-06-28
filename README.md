@@ -6,6 +6,13 @@ By collecting data on users' activities and preferences, Flexivity can offer per
 
 ![Summary 2](https://github.com/BasPater/flexivity/assets/144136215/0c9f8713-02e3-49bf-a4da-55527c943b42)
 
+###Contributors:
+- [Bas Peters](https://github.com/BasPater)
+- [Tom de Waardt]()
+- [Jack Stuijt](https://github.com/Coillenz)
+- [Valentijn Nijhuis]()
+- [Robert Visser]()
+
 ## Installation instructions
 On gitlab go to Deploy>Releases and select the most recent release. Once there, download the file ending in .apk. You can then navigate to this file on your Android device in your file manager of choice. Tap on the file and you will be given a prompt. Follow the instructions in the prompt and the App will be installed on your device.
 
